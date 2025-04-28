@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-500 p-4 text-white">
+        <div class="container mx-auto flex justify-between">
+            <a href="index.html" class="font-bold">My Portfolio</a>
+            <div id="nav-links">
+                <a href="about.html" class="px-2">About</a>
+                <a href="contact.html" class="px-2">Contact</a>
+                <a href="register.html" id="auth-link" class="px-2">Register/Login</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto mt-10 p-5 bg-white shadow-md">
+        <h1 class="text-2xl font-bold">Welcome to My Portfolio</h1>
+        <p class="mt-2">This is the home page.</p>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const navLinks = document.getElementById("nav-links");
+            const authLink = document.getElementById("auth-link");
+
+            if (user) {
+                navLinks.innerHTML = `
+                    <a href="about.html" class="px-2">About</a>
+                    <a href="contact.html" class="px-2">Contact</a>
+                    <button onclick="logout()" class="px-2 bg-red-500 rounded">Logout</button>
+                `;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Age calculator app</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-start h-screen bg-gray-200 p-0 m-0">
+  <div class="bg-white shadow-lg rounded-2xl w-96 md:w-[640px] p-10 mt-20 relative">
+    <form>
+      <ul class="flex space-x-4">
+        <li class="w-24">
+          <label for="day" class="block mb-2 text-gray-500 text-xs tracking-widest font-bold">DAY</label>
+          <input type="number" name="day" id="day" placeholder="DD" required
+                 class="w-full h-14 border border-gray-300 rounded-md text-lg px-4 font-bold">
+          <div class="text-red-500 text-xs mt-2 hidden" id="day-error">This field is required</div>
+        </li>
+        <li class="w-24">
+          <label for="month" class="block mb-2 text-gray-500 text-xs tracking-widest font-bold">MONTH</label>
+          <input type="number" name="month" id="month" placeholder="MM" required
+                 class="w-full h-14 border border-gray-300 rounded-md text-lg px-4 font-bold">
+          <div class="text-red-500 text-xs mt-2 hidden" id="month-error">This field is required</div>
+        </li>
+        <li class="w-32">
+          <label for="year" class="block mb-2 text-gray-500 text-xs tracking-widest font-bold">YEAR</label>
+          <input type="number" name="year" id="year" placeholder="YYYY" required
+                 class="w-full h-14 border border-gray-300 rounded-md text-lg px-4 font-bold">
+          <div class="text-red-500 text-xs mt-2 hidden" id="year-error">This field is required</div>
+        </li>
+      </ul>
+
+      <div class="relative flex items-center my-10">
+        <span class="h-px bg-gray-300 flex-grow"></span>
+        <a class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center cursor-pointer transition hover:bg-gray-800 absolute right-0 top-0" id="calculate-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="46" height="44" viewBox="0 0 46 44">
+            <g fill="none" stroke="#FFF" stroke-width="2">
+              <path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"/>
+            </g>
+          </svg>
+        </a>
+      </div>
+
+      <ul class="transition-all duration-500 overflow-hidden h-0" id="result-container">
+        <li class="text-5xl font-extrabold italic leading-tight">
+          <span class="text-purple-600" id="year-num">- -</span> years
+        </li>
+        <li class="text-5xl font-extrabold italic leading-tight">
+          <span class="text-purple-600" id="month-num">- -</span> months
+        </li>
+        <li class="text-5xl font-extrabold italic leading-tight">
+          <span class="text-purple-600" id="day-num">- -</span> days
+        </li>
+      </ul>
+    </form>
+  </div>
+
+  <script>
+    const newContainer = document.querySelector("#result-container");
+    document.querySelector('#calculate-btn').addEventListener('click', () => {
+      newContainer.style.height = "250px";
+      const dayInput = document.getElementById('day');
+      const monthInput = document.getElementById('month');
+      const yearInput = document.getElementById('year');
+
+      const day = parseInt(dayInput.value);
+      const month = parseInt(monthInput.value) - 1; 
+      const year = parseInt(yearInput.value);
+
+      const today = new Date();
+      const errorMessages = {
+        empty: "This field is required.",
+        invalidDate: "Must be a valid date.",
+        futureDate: "Must be in the past."
+      };
+
+      document.querySelectorAll(".text-red-500").forEach(el => el.classList.add("hidden"));
+
+      let hasError = false;
+      if (!dayInput.value) {
+        document.querySelector('#day-error').classList.remove("hidden");
+        hasError = true;
+      }
+      if (!monthInput.value) {
+        document.querySelector('#month-error').classList.remove("hidden");
+        hasError = true;
+      }
+      if (!yearInput.value) {
+        document.querySelector('#year-error').classList.remove("hidden");
+        hasError = true;
+      }
+      if (hasError) return;
+
+      const inputDate = new Date(year, month, day);
+      if (inputDate.getDate() !== day || inputDate.getMonth() !== month || inputDate.getFullYear() !== year) {
+        document.querySelector('#day-error').textContent = errorMessages.invalidDate;
+        document.querySelector('#month-error').textContent = errorMessages.invalidDate;
+        document.querySelector('#year-error').textContent = errorMessages.invalidDate;
+        document.querySelector('#day-error').classList.remove("hidden");
+        document.querySelector('#month-error').classList.remove("hidden");
+        document.querySelector('#year-error').classList.remove("hidden");
+        return;
+      }
+
+      if (inputDate > today) {
+        document.querySelector('#year-error').textContent = errorMessages.futureDate;
+        document.querySelector('#year-error').classList.remove("hidden");
+        return;
+      }
+
+      let years = today.getFullYear() - year;
+      let months = today.getMonth() - month;
+      let days = today.getDate() - day;
+
+      if (days < 0) {
+        months--;
+        days += new Date(year, month + 1, 0).getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.querySelector('#year-num').textContent = years;
+      document.querySelector('#month-num').textContent = months;
+      document.querySelector('#day-num').textContent = days;
+    });
+  </script>
+</body>
+</html>

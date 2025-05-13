@@ -1,0 +1,1 @@
+#gavaketet codewars. chavugdet maswavlebels da qulebic dagviwera

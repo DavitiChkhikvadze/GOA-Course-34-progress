@@ -20,7 +20,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-indigo-400 to-purple-500 p-6">
       <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-xl p-6">
-        <h1 className="text-3xl font-bold text-center text-indigo-700 mb-6">Მინი პროექტი 💻</h1>
+        <h1 className="text-3xl font-bold text-center text-indigo-700 mb-6">Მინი პროექტი</h1>
 
         {/* Input ველები */}
         <div className="flex flex-col gap-4">

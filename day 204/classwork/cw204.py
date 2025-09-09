@@ -1,0 +1,1 @@
+#დავწერეთ codewars and sent it to teacher

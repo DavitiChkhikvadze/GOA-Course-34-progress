@@ -1,0 +1,1 @@
+#wrote several codewars and sent screenshots to teacher

@@ -1,0 +1,25 @@
+body {
+  background: darkblue;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.controls {
+  margin: 20px;
+}
+
+#bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.bar {
+  width: 10px;
+  margin: 2px;
+  background: cyan;
+  transition: height 0.1s;
+}

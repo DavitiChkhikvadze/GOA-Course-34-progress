@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake Store - ფასის ძიება</title>
+</head>
+<body>
+
+    <h1>ჩვენი Fake Store</h1>
+
+    <div>
+        <label for="priceInput">შეიყვანეთ ზუსტი ფასი ($):</label>
+        <input type="number" id="priceInput" placeholder="მაგ. 29.99">
+        <button onclick="searchByPrice()">ძებნა</button>
+    </div>
+
+    <hr>
+
+    <h2>პროდუქტების სია</h2>
+    <div id="productList">
+        </div>
+
+    <h2>ძებნის შედეგი</h2>
+    <div id="searchResults">
+        </div>
+
+    <script>
+        // 1. მონაცემთა ბაზის სიმულაცია
+        const products = [
+            { id: 1, name: "ლეპტოპი 'ალბატროსი'", price: 1250.00 },
+            { id: 2, name: "უსადენო მაუსი 'ჩქარა'", price: 29.99 },
+            { id: 3, name: "მონიტორი 27'' 'ნათელი'", price: 349.50 },
+            { id: 4, name: "მექანიკური კლავიატურა", price: 79.99 },
+            { id: 5, name: "გარე დისკი 1TB", price: 65.00 },
+        ];
+
+        // 2. პროდუქტების საწყისი რენდერინგი
+        function renderProducts(productArray, targetElementId) {
+            const container = document.getElementById(targetElementId);
+            container.innerHTML = ''; // კონტეინერის გასუფთავება
+
+            if (productArray.length === 0) {
+                container.innerHTML = '<p>პროდუქტი ვერ მოიძებნა.</p>';
+                return;
+            }
+
+            productArray.forEach(product => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>ფასი: $${product.price.toFixed(2)}</p>
+                    <hr>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // საწყის ეტაპზე ყველა პროდუქტის ჩვენება
+        renderProducts(products, 'productList');
+        
+        // 3. ფასის ძებნის ლოგიკა
+        function searchByPrice() {
+            // მომხმარებლის შეყვანილი მნიშვნელობის მიღება
+            const priceInput = document.getElementById('priceInput').value;
+            // შეყვანილი მნიშვნელობის რიცხვად გარდაქმნა (parseFloat უმკლავდება წილადებს)
+            const targetPrice = parseFloat(priceInput);
+
+            // ვალიდაცია: თუ შეყვანილია არასწორი რიცხვი, ვაჩვენოთ შეცდომა
+            if (isNaN(targetPrice)) {
+                document.getElementById('searchResults').innerHTML = '<p style="color: red;">გთხოვთ, შეიყვანოთ სწორი რიცხვი.</p>';
+                return;
+            }
+
+            // Linear Search ლოგიკა: 
+            // ვეძებთ ზუსტად დამთხვევა ფასს
+            const foundProduct = products.find(product => {
+                // შედარება ხდება ზუსტი რიცხვით
+                return product.price === targetPrice;
+            });
+            
+            // 4. შედეგების ჩვენება
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // შედეგების გასუფთავება
+
+            if (foundProduct) {
+                // თუ პროდუქტი მოიძებნა, გამოვსახოთ ის მასივის სახით (ერთი ელემენტით)
+                resultsContainer.innerHTML = '<h3>მოძიებული პროდუქტი (ზუსტი დამთხვევა):</h3>';
+                renderProducts([foundProduct], 'searchResults');
+
+            } else {
+                // თუ ვერ მოიძებნა
+                resultsContainer.innerHTML = '<p>პროდუქტი ამ ზუსტი ფასით ვერ მოიძებნა.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>

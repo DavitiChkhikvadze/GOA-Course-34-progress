@@ -1,0 +1,41 @@
+body {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    input, button, select {
+      margin: 5px;
+      padding: 5px 10px;
+      background: #222;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 4px;
+    }
+
+    #grid {
+      display: grid;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 2px;
+    }
+
+    .cell {
+      background: transparent;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    .cell:hover {
+      transform: scale(1.05);
+    }
+
+    #controls {
+      margin-bottom: 15px;
+    }
+
+    label {
+      margin-left: 10px;
+    }

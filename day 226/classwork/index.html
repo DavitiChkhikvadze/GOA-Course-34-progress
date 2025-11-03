@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>grid ahh painter</h2>
+
+  <div id="controls">
+    grid_x: <input type="number" id="gridX" value="3" min="1" max="20">
+    grid_y: <input type="number" id="gridY" value="2" min="1" max="20">
+    <button id="createGrid">Create Grid</button>
+    <br>
+    color:
+    <select id="colorPicker">
+      <option value="black">black</option>
+      <option value="white">white</option>
+      <option value="green" selected>green</option>
+      <option value="red">red</option>
+      <option value="blue">blue</option>
+      <option value="brown">brown</option>
+      <option value="cyan">cyan</option>
+      <option value="yellow">yellow</option>
+      <option value="purple">purple</option>
+    </select>
+    <label>line color:
+      <select id="lineColor">
+        <option value="white" selected>white</option>
+        <option value="gray">gray</option>
+        <option value="black">black</option>
+        <option value="cyan">cyan</option>
+        <option value="red">red</option>
+        <option value="green">green</option>
+        <option value="purple">purple</option>
+        <option value="yellow">yellow</option>
+      </select>
+    </label>
+    <label>block size:
+      <input type="number" id="blockSize" value="60" min="20" max="150">
+    </label>
+    <button id="erase">erase</button>
+  </div>
+
+  <div id="grid"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
